@@ -8,7 +8,8 @@ service: learning-api
 stages:
   default:
     params:
-      tableNamePrefix: ${self:service}-${sls:stage}
+      tableNamePrefix: learning-${sls:stage}
+      coursesTableName: ${param:tableNamePrefix}-courses
 
 provider:
   name: aws
@@ -17,6 +18,7 @@ provider:
   role: arn:aws:iam::017820698732:role/MyLambdaDynamoDBExecutionRole
   environment:
     STAGE: ${sls:stage}
+    COURSES_TABLE: ${param:coursesTableName}
 
 package:
   individually: true
@@ -37,8 +39,6 @@ functions:
   
   getCourseList:
     handler: src/courses/getCourseList.handler
-    environment:
-      COURSES_TABLE: ${param:tableNamePrefix}-courses
     events:
       - httpApi:
           path: /courses
@@ -46,3 +46,17 @@ functions:
     package:
       include:
         - src/courses/getCourseList.js
+
+resources:
+  Resources:
+    CoursesTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        TableName: ${param:coursesTableName}
