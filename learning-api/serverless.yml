@@ -11,6 +11,9 @@ provider:
   stage: ${opt:stage, 'dev'}
   region: ap-southeast-1
   role: arn:aws:iam::017820698732:role/MyLambdaDynamoDBExecutionRole
+  environment:
+    STAGE: ${self:provider.stage}
+    TABLE_NAME_PREFIX: ${self:service}-${self:provider.stage}
   
 functions:
   hello:
