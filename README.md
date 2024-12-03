@@ -1,5 +1,8 @@
 # learning-api-lambda
 
+# Serverless Framework Documentation
+https://www.serverless.com/framework/docs/getting-started
+
 # Install AWS CLI
 https://aws.amazon.com/cli/
 
@@ -26,9 +29,10 @@ serverless
 > Project: learning-api
 > App: learning-app
 
-# Go to the service
+# Deploy a Service
 cd learning-api
 serverless deploy
 serverless deploy --stage prod
 
+# Developing
 serverless dev
