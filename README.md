@@ -17,13 +17,18 @@ node --version
 
 # Install serverless
 npm install -g serverless
+serverless update
 serverless --version
-
-# Install serverless offline
-npm install serverless-offline --save-dev
 
 # Create a New Serverless Project
 serverless
 > Template: AWS / Node.js / HTTP API
 > Project: learning-api
 > App: learning-app
+
+# Go to the service
+cd learning-api
+serverless deploy
+serverless deploy --stage prod
+
+serverless dev
