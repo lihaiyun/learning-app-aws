@@ -5,20 +5,44 @@ app: learning-app
 # "service" is the name of this project. This will also be added to your AWS resource names.
 service: learning-api
 
+stages:
+  default:
+    params:
+      tableNamePrefix: ${self:service}-${sls:stage}
+
 provider:
   name: aws
   runtime: nodejs20.x
-  stage: ${opt:stage, 'dev'}
   region: ap-southeast-1
   role: arn:aws:iam::017820698732:role/MyLambdaDynamoDBExecutionRole
   environment:
-    STAGE: ${self:provider.stage}
-    TABLE_NAME_PREFIX: ${self:service}-${self:provider.stage}
-  
+    STAGE: ${sls:stage}
+
+package:
+  individually: true
+  exclude:
+    - src/**
+    - README.md
+
 functions:
   hello:
-    handler: handler.hello
+    handler: src/hello/hello.handler
     events:
       - httpApi:
           path: /
           method: get
+    package:
+      include:
+        - src/hello/hello.js
+  
+  getCourseList:
+    handler: src/courses/getCourseList.handler
+    environment:
+      COURSES_TABLE: ${param:tableNamePrefix}-courses
+    events:
+      - httpApi:
+          path: /courses
+          method: get
+    package:
+      include:
+        - src/courses/getCourseList.js
