@@ -21,3 +21,9 @@ serverless --version
 
 # Install serverless offline
 npm install serverless-offline --save-dev
+
+# Create a New Serverless Project
+serverless
+> Template: AWS / Node.js / HTTP API
+> Project: learning-api
+> App: learning-app
