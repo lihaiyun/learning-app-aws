@@ -8,7 +8,7 @@ service: learning-api
 stages:
   default:
     params:
-      tableNamePrefix: learning-${sls:stage}
+      tableNamePrefix: ${self:service}-${sls:stage}
       coursesTableName: ${param:tableNamePrefix}-courses
 
 provider:
