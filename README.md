@@ -10,10 +10,6 @@ https://aws.amazon.com/cli/
 aws configure
 aws sts get-caller-identity
 
-# Login severless user
-https://app.serverless.com/
-serverless login
-
 # Install Node.js
 https://nodejs.org
 node --version
@@ -22,6 +18,10 @@ node --version
 npm install -g serverless
 serverless update
 serverless --version
+
+# Login severless user
+serverless login
+https://app.serverless.com/
 
 # Create a New Serverless Project
 serverless
