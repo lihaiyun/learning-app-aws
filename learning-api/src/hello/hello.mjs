@@ -1,6 +1,8 @@
 export const handler = async (event) => {
-  const params = event.queryStringParameters;
-  const name = params && params.name ? params.name : "world";
+  // get query parameters from event
+  const query = event.queryStringParameters;
+  const name = query && query.name ? query.name : "world";
+  // get stage from environment variables
   const STAGE = process.env.STAGE;
 
   return {

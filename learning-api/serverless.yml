@@ -36,7 +36,17 @@ functions:
     package:
       include:
         - src/hello/hello.mjs
-  
+
+  addCourse:
+    handler: src/courses/addCourse.handler
+    events:
+      - httpApi:
+          path: /courses
+          method: post
+    package:
+      include:
+        - src/courses/addCourse.mjs
+
   getCourseList:
     handler: src/courses/getCourseList.handler
     events:

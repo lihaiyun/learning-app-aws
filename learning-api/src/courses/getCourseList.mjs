@@ -5,11 +5,12 @@ const client = new DynamoDBClient();
 const docClient = DynamoDBDocumentClient.from(client);
 
 export const handler = async (event) => {
-  const params = {
+  // get data from DynamoDB
+  const command = new ScanCommand({
     TableName: process.env.COURSES_TABLE
-  };
-  const command = new ScanCommand(params);
+  });
   const response = await docClient.send(command);
+  console.log(response);
 
   return {
     statusCode: 200,
