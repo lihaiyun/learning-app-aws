@@ -1,13 +1,10 @@
-const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
-const {
-  DynamoDBDocumentClient, 
-  ScanCommand
-} = require("@aws-sdk/lib-dynamodb");
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import { DynamoDBDocumentClient, ScanCommand } from "@aws-sdk/lib-dynamodb";
 
 const client = new DynamoDBClient();
 const docClient = DynamoDBDocumentClient.from(client);
 
-exports.handler = async (event) => {
+export async function handler(event) {
   const params = {
     TableName: process.env.COURSES_TABLE
   }

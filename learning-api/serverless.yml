@@ -35,7 +35,7 @@ functions:
           method: get
     package:
       include:
-        - src/hello/hello.js
+        - src/hello/hello.mjs
   
   getCourseList:
     handler: src/courses/getCourseList.handler
@@ -45,7 +45,7 @@ functions:
           method: get
     package:
       include:
-        - src/courses/getCourseList.js
+        - src/courses/getCourseList.mjs
 
 resources:
   Resources:

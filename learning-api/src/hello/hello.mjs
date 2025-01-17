@@ -1,4 +1,4 @@
-exports.handler = async (event) => {
+export async function handler(event) {
   let params = event.queryStringParameters;
   let name = params && params.name ? params.name : "world";
   
@@ -14,4 +14,4 @@ exports.handler = async (event) => {
       stage: STAGE
     })
   };
-};
+}
