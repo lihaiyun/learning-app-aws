@@ -11,17 +11,21 @@ export const handler = async (event) => {
   const item = {
     id: randomUUID(),
     name: data.name,
+    name_lower: data.name.toLowerCase(),
     description: data.description,
     instructor: data.instructor,
     duration: data.duration,
     createdAt: new Date().toISOString()
   }
 
-  // add data to DynamoDB
-  const command = new PutCommand({
+  // set command parameters
+  let params = {
     TableName: process.env.COURSES_TABLE,
     Item: item
-  });
+  };
+
+  // add data to DynamoDB
+  const command = new PutCommand(params);
   const response = await docClient.send(command);
   console.log(response);
 

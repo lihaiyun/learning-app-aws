@@ -5,10 +5,21 @@ const client = new DynamoDBClient();
 const docClient = DynamoDBDocumentClient.from(client);
 
 export const handler = async (event) => {
-  // get data from DynamoDB
-  const command = new ScanCommand({
+  // set command parameters
+  let params = {
     TableName: process.env.COURSES_TABLE
-  });
+  };
+
+  // search by name (if provided, case-insensitive)
+  const query = event.queryStringParameters;
+  if (query && query.search) {
+    params.FilterExpression = "contains(#name_lower, :search)";
+    params.ExpressionAttributeNames = { "#name_lower": "name_lower" };
+    params.ExpressionAttributeValues = { ":search": query.search.toLowerCase() };
+  }
+
+  // get data from DynamoDB
+  const command = new ScanCommand(params);
   const response = await docClient.send(command);
   console.log(response);
 
