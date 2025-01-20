@@ -5,10 +5,17 @@ const client = new DynamoDBClient();
 const docClient = DynamoDBDocumentClient.from(client);
 
 export const handler = async (event) => {
+  const query = event.queryStringParameters;
+  const domain = query && query.domain ? query.domain : 'ALL';
+
   // set command parameters
   let params = {
     TableName: process.env.COURSES_TABLE,
-    IndexName: "createdAtIndex", // sort by created time
+    IndexName: "domainIndex",
+    KeyConditionExpression: "domain = :domain",
+    ExpressionAttributeValues: {
+      ":domain": domain
+    },
     ScanIndexForward: false, // descending order (latest first)
   };
 

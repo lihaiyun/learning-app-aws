@@ -76,28 +76,20 @@ resources:
         AttributeDefinitions:
           - AttributeName: courseId
             AttributeType: S
-          - AttributeName: courseName
-            AttributeType: S
-          - AttributeName: courseNameLower
+          - AttributeName: domain
             AttributeType: S
           - AttributeName: createdAt
             AttributeType: S
         KeySchema:
           - AttributeName: courseId
-            KeyType: HASH # Partition key for the table
+            KeyType: HASH
         BillingMode: PAY_PER_REQUEST
         GlobalSecondaryIndexes:
-          - IndexName: createdAtIndex
+          - IndexName: domainIndex
             KeySchema:
+              - AttributeName: domain
+                KeyType: HASH
               - AttributeName: createdAt
-                KeyType: RANGE # Sort key for the index
-            Projection:
-              ProjectionType: ALL
-          - IndexName: searchIndex
-            KeySchema:
-              - AttributeName: courseNameLower
-                KeyType: HASH # Partition key for the index
-              - AttributeName: courseName
-                KeyType: RANGE # Sort key for the index
+                KeyType: RANGE
             Projection:
               ProjectionType: ALL
