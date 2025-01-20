@@ -1,5 +1,5 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { DynamoDBDocumentClient, ScanCommand } from "@aws-sdk/lib-dynamodb";
+import { DynamoDBDocumentClient, QueryCommand } from "@aws-sdk/lib-dynamodb";
 
 const client = new DynamoDBClient();
 const docClient = DynamoDBDocumentClient.from(client);
@@ -7,20 +7,13 @@ const docClient = DynamoDBDocumentClient.from(client);
 export const handler = async (event) => {
   // set command parameters
   let params = {
-    TableName: process.env.COURSES_TABLE
+    TableName: process.env.COURSES_TABLE,
+    IndexName: "createdAtIndex", // sort by created time
+    ScanIndexForward: false, // descending order (latest first)
   };
 
-  // search by name (if provided, case-insensitive)
-  const query = event.queryStringParameters;
-  if (query && query.search) {
-    params.FilterExpression = "contains(courseNameLower, :search)";
-    params.ExpressionAttributeValues = {
-      ":search": query.search.toLowerCase() 
-    };
-  }
-
-  // scan data from DynamoDB
-  const command = new ScanCommand(params);
+  // query data from DynamoDB
+  const command = new QueryCommand(params);
   const response = await docClient.send(command);
   console.log(response);
 
