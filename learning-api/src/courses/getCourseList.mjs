@@ -13,9 +13,10 @@ export const handler = async (event) => {
   // search by name (if provided, case-insensitive)
   const query = event.queryStringParameters;
   if (query && query.search) {
-    params.FilterExpression = "contains(#name_lower, :search)";
-    params.ExpressionAttributeNames = { "#name_lower": "name_lower" };
-    params.ExpressionAttributeValues = { ":search": query.search.toLowerCase() };
+    params.FilterExpression = "contains(courseNameLower, :search)";
+    params.ExpressionAttributeValues = {
+      ":search": query.search.toLowerCase() 
+    };
   }
 
   // get data from DynamoDB
