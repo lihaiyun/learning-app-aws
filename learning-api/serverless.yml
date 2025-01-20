@@ -56,6 +56,16 @@ functions:
     package:
       include:
         - src/courses/getCourseList.mjs
+  
+  getCourse:
+    handler: src/courses/getCourse.handler
+    events:
+      - httpApi:
+          path: /courses/{courseId}
+          method: get
+    package:
+      include:
+        - src/courses/getCourse.mjs
 
 resources:
   Resources:

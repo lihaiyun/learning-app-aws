@@ -19,7 +19,7 @@ export const handler = async (event) => {
     };
   }
 
-  // get data from DynamoDB
+  // scan data from DynamoDB
   const command = new ScanCommand(params);
   const response = await docClient.send(command);
   console.log(response);

@@ -25,14 +25,23 @@ export const handler = async (event) => {
     Item: item
   };
 
-  // add data to DynamoDB
-  const command = new PutCommand(params);
-  const response = await docClient.send(command);
-  console.log(response);
-
-  return {
-    statusCode: 200,
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(item)
-  };
+  // save data to DynamoDB
+  try {
+    const command = new PutCommand(params);
+    const response = await docClient.send(command);
+    console.log(response);
+    return {
+      statusCode: 200,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(item)
+    };
+  }
+  catch (err) {
+    console.error(err);
+    return {
+      statusCode: 500,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: 'Failed to add course' })
+    };
+  }
 };
