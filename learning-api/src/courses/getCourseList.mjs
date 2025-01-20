@@ -11,22 +11,31 @@ export const handler = async (event) => {
   // set command parameters
   let params = {
     TableName: process.env.COURSES_TABLE,
-    IndexName: "domainIndex",
-    KeyConditionExpression: "domain = :domain",
+    IndexName: "courseDomainIndex",
+    KeyConditionExpression: "courseDomain = :domain",
     ExpressionAttributeValues: {
       ":domain": domain
     },
     ScanIndexForward: false, // descending order (latest first)
   };
 
-  // query data from DynamoDB
-  const command = new QueryCommand(params);
-  const response = await docClient.send(command);
-  console.log(response);
+  try {
+    // query data from DynamoDB
+    const command = new QueryCommand(params);
+    const response = await docClient.send(command);
 
-  return {
-    statusCode: 200,
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(response.Items)
-  };
+    return {
+      statusCode: 200,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(response.Items)
+    };
+  }
+  catch (err) {
+    console.error(err);
+    return {
+      statusCode: 500,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: 'Failed to get course list' })
+    };
+  }
 };

@@ -8,12 +8,12 @@ const docClient = DynamoDBDocumentClient.from(client);
 export const handler = async (event) => {
   // get data from event body
   const data = JSON.parse(event.body);
-  // avoid to use reserved words like name, type, status
+  // avoid to use reserved words like name, type, domain, status
   const item = {
     courseId: randomUUID(),
     courseName: data.courseName,
     courseNameLower: data.courseName.toLowerCase(),
-    domain: data.domain,
+    courseDomain: data.courseDomain,
     description: data.description,
     instructor: data.instructor,
     duration: data.duration,
