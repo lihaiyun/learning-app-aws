@@ -37,6 +37,16 @@ functions:
       include:
         - src/hello/hello.py
 
+  getCourseList:
+    handler: src/courses/get_course_list.handler
+    events:
+      - httpApi:
+          path: /courses
+          method: get
+    package:
+      include:
+        - src/courses/get_course_list.py
+
 resources:
   Resources:
     CoursesTable:
