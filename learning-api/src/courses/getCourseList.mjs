@@ -1,33 +1,28 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { DynamoDBDocumentClient, QueryCommand } from "@aws-sdk/lib-dynamodb";
+import { DynamoDBDocumentClient, ScanCommand } from "@aws-sdk/lib-dynamodb";
 
 const client = new DynamoDBClient();
 const docClient = DynamoDBDocumentClient.from(client);
 
 export const handler = async (event) => {
-  const query = event.queryStringParameters;
-  const domain = query && query.domain ? query.domain : 'ALL';
-
   // set command parameters
   let params = {
-    TableName: process.env.COURSES_TABLE,
-    IndexName: "courseDomainIndex",
-    KeyConditionExpression: "courseDomain = :domain",
-    ExpressionAttributeValues: {
-      ":domain": domain
-    },
-    ScanIndexForward: false, // descending order (latest first)
+    TableName: process.env.COURSES_TABLE
   };
 
   try {
     // query data from DynamoDB
-    const command = new QueryCommand(params);
+    const command = new ScanCommand(params);
     const response = await docClient.send(command);
+
+    // sort the list by createdAt (descending)
+    let items = response.Items;
+    items.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     return {
       statusCode: 200,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(response.Items)
+      body: JSON.stringify(items)
     };
   }
   catch (err) {
