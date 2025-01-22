@@ -37,6 +37,16 @@ functions:
       include:
         - src/hello/hello.py
 
+  addCourse:
+    handler: src/courses/add_course.handler
+    events:
+      - httpApi:
+          path: /courses
+          method: post
+    package:
+      include:
+        - src/courses/add_course.py
+
   getCourseList:
     handler: src/courses/get_course_list.handler
     events:
