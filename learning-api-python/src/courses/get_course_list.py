@@ -11,12 +11,13 @@ def handler(event, context):
     try:
         response = table.scan()
         courses = response.get("Items", [])
-        json_data = json.dumps(courses, default=str)
-        print(json_data)
+        # convert Decimal to float
+        for course in courses:
+            course["rating"] = float(course["rating"])
         response = {
             "statusCode": 200,
             "headers": { "Content-Type": "application/json" },
-            "body": json_data
+            "body": json.dumps(courses)
         }
     except Exception as e:
         print(f'Error: {e}') # log the error

@@ -39,12 +39,12 @@ def handler(event, context):
     # put item in DynamoDB
     try:
         table.put_item(Item=item)
-        json_data = json.dumps(item, default=str)
-        print(json_data)
+        # convert Decimal to float
+        item["rating"] = float(item["rating"])
         response = {
             "statusCode": 201,
             "headers": { "Content-Type": "application/json" },
-            "body": json.dumps(json_data)
+            "body": json.dumps(item)
         }
     except Exception as e:
         print(f'Error: {e}') # log the error
