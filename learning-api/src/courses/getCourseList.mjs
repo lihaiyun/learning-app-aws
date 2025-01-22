@@ -10,6 +10,14 @@ export const handler = async (event) => {
     TableName: process.env.COURSES_TABLE
   };
 
+  // search data if query is provided
+  const query = event.queryStringParameters;
+  if (query && query.search) {
+    const search = query.search.toLowerCase();
+    params.FilterExpression = 'contains(courseNameLower, :search)';
+    params.ExpressionAttributeValues = { ':search': search };
+  }
+
   try {
     // query data from DynamoDB
     const command = new ScanCommand(params);

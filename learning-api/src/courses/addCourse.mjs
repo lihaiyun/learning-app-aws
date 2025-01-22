@@ -13,6 +13,7 @@ export const handler = async (event) => {
     courseId: randomUUID(),
     courseName: data.courseName,
     courseNameLower: data.courseName.toLowerCase(),
+    courseDomain: data.courseDomain,
     description: data.description,
     instructor: data.instructor,
     duration: data.duration,
