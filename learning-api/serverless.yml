@@ -76,16 +76,7 @@ resources:
         AttributeDefinitions:
           - AttributeName: courseId
             AttributeType: S
-          - AttributeName: courseNameLow
-            AttributeType: S
         KeySchema:
           - AttributeName: courseId
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
-        GlobalSecondaryIndexes:
-          - IndexName: courseNameIndex
-            KeySchema:
-              - AttributeName: courseName
-                KeyType: HASH
-            Projection:
-              ProjectionType: ALL
