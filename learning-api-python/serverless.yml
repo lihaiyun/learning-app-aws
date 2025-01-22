@@ -5,14 +5,61 @@ app: learning-app
 # "service" is the name of this project. This will also be added to your AWS resource names.
 service: learning-api-python
 
+stages:
+  default:
+    params:
+      tableNamePrefix: ${self:service}-${sls:stage}
+      coursesTableName: ${param:tableNamePrefix}-courses
+
 provider:
   name: aws
   runtime: python3.12
+  region: ap-southeast-1
+  role: arn:aws:iam::017820698732:role/MyLambdaDynamoDBExecutionRole
+  environment:
+    STAGE: ${sls:stage}
+    COURSES_TABLE: ${param:coursesTableName}
+
+package:
+  individually: true
+  exclude:
+    - src/**
+    - README.md
 
 functions:
   hello:
-    handler: handler.hello
+    handler: src/hello/hello.handler
     events:
       - httpApi:
           path: /
           method: get
+    package:
+      include:
+        - src/hello/hello.py
+
+resources:
+  Resources:
+    CoursesTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${param:coursesTableName}
+        AttributeDefinitions:
+          - AttributeName: courseId
+            AttributeType: S
+          - AttributeName: courseDomain
+            AttributeType: S
+          - AttributeName: createdAt
+            AttributeType: S
+        KeySchema:
+          - AttributeName: courseId
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        GlobalSecondaryIndexes:
+          - IndexName: courseDomainIndex
+            KeySchema:
+              - AttributeName: courseDomain
+                KeyType: HASH
+              - AttributeName: createdAt
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
