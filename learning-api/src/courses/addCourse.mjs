@@ -37,7 +37,8 @@ export const handler = async (event) => {
   // set command parameters
   let params = {
     TableName: process.env.COURSES_TABLE,
-    Item: item
+    Item: item,
+    ConditionExpression: 'attribute_not_exists(courseId)'
   };
 
   // save data to DynamoDB
