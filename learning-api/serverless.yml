@@ -57,6 +57,16 @@ functions:
       include:
         - src/courses/getCourseList.mjs
   
+  getCourseListByDomain:
+    handler: src/courses/getCourseListByDomain.handler
+    events:
+      - httpApi:
+          path: /courses/domain/{courseDomain}
+          method: get
+    package:
+      include:
+        - src/courses/getCourseListByDomain.mjs
+
   getCourse:
     handler: src/courses/getCourse.handler
     events:
@@ -76,7 +86,20 @@ resources:
         AttributeDefinitions:
           - AttributeName: courseId
             AttributeType: S
+          - AttributeName: courseDomain
+            AttributeType: S
+          - AttributeName: createdAt
+            AttributeType: S
         KeySchema:
           - AttributeName: courseId
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
+        GlobalSecondaryIndexes:
+          - IndexName: courseDomainIndex
+            KeySchema:
+              - AttributeName: courseDomain
+                KeyType: HASH
+              - AttributeName: createdAt
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
