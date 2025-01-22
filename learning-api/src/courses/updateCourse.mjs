@@ -40,7 +40,7 @@ export const handler = async (event) => {
     ConditionExpression: "attribute_exists(courseId)"
   };
 
-  // save data to DynamoDB
+  // update data in DynamoDB
   try {
     const command = new UpdateCommand(params);
     const response = await docClient.send(command);

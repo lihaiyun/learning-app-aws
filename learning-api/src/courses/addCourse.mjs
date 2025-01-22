@@ -46,7 +46,7 @@ export const handler = async (event) => {
     ConditionExpression: 'attribute_not_exists(courseId)'
   };
 
-  // save data to DynamoDB
+  // put data in DynamoDB
   try {
     const command = new PutCommand(params);
     const response = await docClient.send(command);

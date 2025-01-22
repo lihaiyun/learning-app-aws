@@ -87,6 +87,16 @@ functions:
       include:
         - src/courses/updateCourse.mjs
 
+  deleteCourse:
+    handler: src/courses/deleteCourse.handler
+    events:
+      - httpApi:
+          path: /courses/{courseId}
+          method: delete
+    package:
+      include:
+        - src/courses/deleteCourse.mjs
+
 resources:
   Resources:
     CoursesTable:

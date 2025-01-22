@@ -14,23 +14,33 @@ export const handler = async (event) => {
         Key: { courseId }
     };
     
-    // get data from DynamoDB
-    const command = new GetCommand(params);
-    const response = await docClient.send(command);
-    console.log(response);
+    try {
+        // get data from DynamoDB
+        const command = new GetCommand(params);
+        const response = await docClient.send(command);
+        console.log(response);
 
-    if (response.Item) {
-        return {
-            statusCode: 200,
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(response.Item)
-        };
+        if (response.Item) {
+            return {
+                statusCode: 200,
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(response.Item)
+            };
+        }
+        else {
+            return {
+                statusCode: 404,
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: 'Course not found' })
+            };
+        }
     }
-    else {
+    catch (err) {
+        console.error(err);
         return {
-            statusCode: 404,
+            statusCode: 500,
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message: 'Course not found' })
+            body: JSON.stringify({ message: 'Failed to get course' })
         };
     }
 };
