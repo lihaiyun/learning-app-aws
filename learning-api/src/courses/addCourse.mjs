@@ -38,6 +38,7 @@ export const handler = async (event) => {
   let params = {
     TableName: process.env.COURSES_TABLE,
     Item: item,
+    // avoid to overwrite existing item
     ConditionExpression: 'attribute_not_exists(courseId)'
   };
 
