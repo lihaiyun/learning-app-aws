@@ -22,7 +22,10 @@ function generateId() {
 export const handler = async (event) => {
   // get data from event body
   const data = JSON.parse(event.body);
-  // avoid to use reserved words like name, type, domain, status
+
+  // set new item
+  // avoid to use reserved words like name, domain, type, duration, status
+  const now = new Date().toISOString();
   const item = {
     courseId: generateId(),
     courseName: data.courseName,
@@ -30,8 +33,9 @@ export const handler = async (event) => {
     courseDomain: data.courseDomain,
     description: data.description,
     instructor: data.instructor,
-    duration: data.duration,
-    createdAt: new Date().toISOString()
+    rating: data.rating,
+    createdAt: now,
+    updatedAt: now
   }
 
   // set command parameters
@@ -50,7 +54,10 @@ export const handler = async (event) => {
     return {
       statusCode: 200,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(item)
+      body: JSON.stringify({ 
+        message: 'Course added', 
+        courseId: item.courseId 
+      })
     };
   }
   catch (err) {

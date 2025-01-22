@@ -77,6 +77,16 @@ functions:
       include:
         - src/courses/getCourse.mjs
 
+  updateCourse:
+    handler: src/courses/updateCourse.handler
+    events:
+      - httpApi:
+          path: /courses/{courseId}
+          method: put
+    package:
+      include:
+        - src/courses/updateCourse.mjs
+
 resources:
   Resources:
     CoursesTable:
