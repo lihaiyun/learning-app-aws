@@ -6,16 +6,13 @@ const client = new DynamoDBClient();
 const docClient = DynamoDBDocumentClient.from(client);
 
 function generateId() {
-  // Get the current timestamp in seconds
+  // get the current timestamp in seconds
   const timestamp = Math.floor(new Date().getTime() / 1000);
-
-  // Convert timestamp to hexadecimal string
+  // convert timestamp to hexadecimal string
   const hexTimestamp = timestamp.toString(16);
-
-  // Generate random bytes and convert to hexadecimal
-  const hexRandom = crypto.randomBytes(4).toString('hex');
-
-  // Combine the timestamp and random part
+  // generate random bytes and convert to hexadecimal
+  const hexRandom = crypto.randomBytes(3).toString('hex');
+  // combine the timestamp and random part
   return `${hexTimestamp}-${hexRandom}`;
 }
 
@@ -54,10 +51,7 @@ export const handler = async (event) => {
     return {
       statusCode: 200,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ 
-        message: 'Course added', 
-        courseId: item.courseId 
-      })
+      body: JSON.stringify(item)
     };
   }
   catch (err) {
