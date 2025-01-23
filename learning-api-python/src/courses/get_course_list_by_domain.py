@@ -34,6 +34,6 @@ def handler(event, context):
         response = {
             "statusCode": 500,
             "headers": { "Content-Type": "application/json" },
-            "body": json.dumps({"message": "Failed to get course list"})
+            "body": json.dumps({"message": "Failed to get course list by domain"})
         }
     return response
