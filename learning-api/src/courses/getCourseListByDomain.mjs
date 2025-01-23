@@ -21,15 +21,10 @@ export const handler = async (event) => {
     // query data from DynamoDB
     const command = new QueryCommand(params);
     const response = await docClient.send(command);
-
-    // sort the list by createdAt (descending)
-    let items = response.Items;
-    items.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-
     return {
       statusCode: 200,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(items)
+      body: JSON.stringify(response.Items)
     };
   }
   catch (err) {
