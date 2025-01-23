@@ -87,6 +87,16 @@ functions:
       include:
         - src/courses/update_course.py
 
+  deleteCourse:
+    handler: src/courses/delete_course.handler
+    events:
+      - httpApi:
+          path: /courses/{courseId}
+          method: delete
+    package:
+      include:
+        - src/courses/delete_course.py
+
 resources:
   Resources:
     CoursesTable:
