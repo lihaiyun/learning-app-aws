@@ -57,6 +57,16 @@ functions:
       include:
         - src/courses/get_course_list.py
 
+  getCourseListByDomain:
+    handler: src/courses/get_course_list_by_domain.handler
+    events:
+      - httpApi:
+          path: /courses/domain/{courseDomain}
+          method: get
+    package:
+      include:
+        - src/courses/get_course_list_by_domain.py
+
 resources:
   Resources:
     CoursesTable:
