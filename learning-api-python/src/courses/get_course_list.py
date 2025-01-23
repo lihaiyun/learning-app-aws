@@ -14,15 +14,15 @@ def handler(event, context):
     try:
         # scan data from DynamoDB
         if search:
-            response = table.scan(
+            db_response = table.scan(
                 FilterExpression="contains(courseNameLower, :search)",
                 ExpressionAttributeValues={":search": search.lower()}
             )
         else:
-            response = table.scan()
+            db_response = table.scan()
 
         # get course list from response
-        courses = response.get("Items", [])
+        courses = db_response.get("Items", [])
         # convert Decimal to float
         for course in courses:
             course["rating"] = float(course["rating"])

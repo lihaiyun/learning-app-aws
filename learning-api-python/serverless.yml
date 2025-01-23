@@ -77,6 +77,16 @@ functions:
       include:
         - src/courses/get_course.py
 
+  updateCourse:
+    handler: src/courses/update_course.handler
+    events:
+      - httpApi:
+          path: /courses/{courseId}
+          method: put
+    package:
+      include:
+        - src/courses/update_course.py
+
 resources:
   Resources:
     CoursesTable:

@@ -12,14 +12,14 @@ def handler(event, context):
 
     try:
         # query data from DynamoDB
-        response = table.query(
+        db_response = table.query(
             IndexName="courseDomainIndex",
             KeyConditionExpression="courseDomain = :courseDomain",
             ExpressionAttributeValues={":courseDomain": courseDomain},
             ScanIndexForward=False # sort by createdAt in descending order
         )
         # get course list from response
-        courses = response.get("Items", [])
+        courses = db_response.get("Items", [])
         # convert Decimal to float
         for course in courses:
             course["rating"] = float(course["rating"])

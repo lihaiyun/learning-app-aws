@@ -12,12 +12,12 @@ def handler(event, context):
     
     try:
         # get item from DynamoDB
-        response = table.get_item(Key={"courseId": courseId})
-        item = response.get("Item")
+        db_response = table.get_item(Key={"courseId": courseId})
+        item = db_response.get("Item")
         # convert Decimal to float
         item["rating"] = float(item["rating"])
         response = {
-            "statusCode": 201,
+            "statusCode": 200,
             "headers": { "Content-Type": "application/json" },
             "body": json.dumps(item)
         }

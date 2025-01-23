@@ -38,11 +38,17 @@ def handler(event, context):
     
     try:
         # put item in DynamoDB
-        table.put_item(Item=item)
+        db_response = table.put_item(
+            Item=item,
+            # prevent a new item from replacing an existing item
+            ConditionExpression="attribute_not_exists(courseId)"
+        )
+        print(f"DB Response: {db_response}") # log the response
+
         # convert Decimal to float
         item["rating"] = float(item["rating"])
         response = {
-            "statusCode": 201,
+            "statusCode": 200,
             "headers": { "Content-Type": "application/json" },
             "body": json.dumps(item)
         }
