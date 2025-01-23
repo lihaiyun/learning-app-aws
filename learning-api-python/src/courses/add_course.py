@@ -36,8 +36,8 @@ def handler(event, context):
         "updatedAt": now
     }
     
-    # put item in DynamoDB
     try:
+        # put item in DynamoDB
         table.put_item(Item=item)
         # convert Decimal to float
         item["rating"] = float(item["rating"])

@@ -7,13 +7,28 @@ def handler(event, context):
     dynamodb = boto3.resource("dynamodb")
     table = dynamodb.Table(os.getenv("COURSES_TABLE"))
 
-    # scan data from DynamoDB
+    # get search value from query string parameters
+    query = event.get("queryStringParameters", {})
+    search = query.get("search")
+
     try:
-        response = table.scan()
+        # scan data from DynamoDB
+        if search:
+            response = table.scan(
+                FilterExpression="contains(courseNameLower, :search)",
+                ExpressionAttributeValues={":search": search.lower()}
+            )
+        else:
+            response = table.scan()
+
+        # get course list from response
         courses = response.get("Items", [])
         # convert Decimal to float
         for course in courses:
             course["rating"] = float(course["rating"])
+        # sort course list by createdAt
+        courses.sort(key=lambda x: x["createdAt"], reverse=True)
+
         response = {
             "statusCode": 200,
             "headers": { "Content-Type": "application/json" },
