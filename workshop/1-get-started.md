@@ -29,10 +29,11 @@
 >> value: API default endpoint  
 >> select the environment
 
-> create collection workshop-courses  
->> add request: Hello
+> create collection workshop-courses
+
+> add request: Hello
 >> method: GET, path: {{baseUrl}}
->> test the endpoint to trigger the lambda function
+>> test to trigger the lambda function  
 
 # Lambda
 > function workshop-nodejs-hello  
@@ -46,5 +47,5 @@
 # Lambda
 > function workshop-nodejs-hello  
 >> Configuration: add environment variable: STAGE = dev  
->> update code to use environment variable  
+>> edit code to use environment variable and deploy
 >> test the function  
