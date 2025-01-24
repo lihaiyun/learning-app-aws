@@ -32,13 +32,19 @@
 > create collection workshop-courses  
 >> add request: Hello
 >> method: GET, path: {{baseUrl}}
->> test the endpoint
+>> test the endpoint to trigger the lambda function
 
 # Lambda
-> go to function workshop-nodejs-hello  
->> observe that the trigger is API Gateway  
+> function workshop-nodejs-hello  
+>> observe that now the trigger is API Gateway  
 >> Monitor: View CloudWatch logs  
 
 # CloudWatch
 > Log group: /aws/lambda/workshop-nodejs-hello  
 >> view log steams  
+
+# Lambda
+> function workshop-nodejs-hello  
+>> Configuration: add environment variable: STAGE = dev  
+>> update code to use environment variable  
+>> test the function  
