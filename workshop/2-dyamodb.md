@@ -28,3 +28,11 @@
 # DynamoDB
 > Explore items in the table workshop-courses  
 >> observe that new item is added  
+
+# Complete all lambda functions (CRUD)
+> addCourse (PutItem)  
+> getCourseList (Scan)  
+> getCourseListByDomain (Query)  
+> getCourse (GetItem)  
+> updateCourse (UpdateItem)  
+> deleteCourse (DeleteItem)  
