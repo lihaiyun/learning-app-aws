@@ -1,6 +1,5 @@
 # Phone Shop API
 > Develop your phone shop API (CRUD)  
-
 > Phone attributes  
 >> phoneId  
 >> phoneName  
