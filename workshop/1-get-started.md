@@ -16,7 +16,7 @@
 >> copy the default endpoint:  
 >> https://{api-gateway-id}.execute-api.{region}.amazonaws.com  
 
-> create route  
+> create route for the API  
 >> method: GET, path: /  
 
 > attach integration to the route  
