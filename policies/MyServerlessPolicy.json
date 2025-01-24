@@ -1,0 +1,30 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "lambda:*",
+                "apigateway:*",
+                "dynamodb:*",
+                "s3:*",
+                "cloudformation:*",
+                "logs:*",
+                "iot:DescribeEndpoint",
+                "ssm:GetParameter",
+                "ssm:PutParameter"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "iam:PassRole",
+            "Resource": "arn:aws:iam::017820698732:role/MyLambdaDynamoDBExecutionRole",
+            "Condition": {
+                "StringLike": {
+                    "iam:PassedToService": "lambda.amazonaws.com"
+                }
+            }
+        }
+    ]
+}
