@@ -10,7 +10,7 @@
 
 # Lambda
 > create function workshop-nodejs-addCourse
->> environment variable: COURSES_TABLE = workshop-courses
+>> environment variable: COURSES_TABLE = workshop-courses  
 >> edit code and deploy
 
 # API Gateway
@@ -43,15 +43,15 @@
 > new API Getway: workshop-python-api  
 
 # Challenges
-> Lambda Layer
->> create layer for the package nanoid
+> Lambda Layer  
+>> create layer for the package nanoid  
 >> use the layer in the function addCourse to generate id
 
 > New Lambda Function  
->> name: exportCourseList
->> get the selected month from the query (by default is last month)
->> get the new courses created during the selected month
->> export the data to csv and save to S3 bucket
+>> name: exportCourseList  
+>> get the selected month from the query (by default is last month)  
+>> get the new courses created during the selected month  
+>> export the data to csv and save to S3 bucket  
 
 > EventBridge
 >> create scheduler to trigger the lambda function exportCourseList
