@@ -36,3 +36,8 @@
 > getCourse (GetItem)  
 > updateCourse (UpdateItem)  
 > deleteCourse (DeleteItem)  
+
+# Code in Python
+> same DynamoDB  
+> new Lambda functions: workshop-python-xxx  
+> new API Getway: workshop-python-api  
