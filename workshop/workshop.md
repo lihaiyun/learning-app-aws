@@ -14,8 +14,10 @@
 >> name: workshop-nodejs-api  
 >> copy the default endpoint:
 >> e.g. https://{api-gateway-id}.execute-api.{region}.amazonaws.com  
+
 > create route  
 >> method: GET, path: /  
+
 > attach integration to the route  
 >> type: lambda function  
 >> lambda function: workshop-nodejs-hello  
