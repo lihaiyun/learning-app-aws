@@ -8,7 +8,7 @@
                 "logs:CreateLogStream",
                 "logs:PutLogEvents"
             ],
-            "Resource": "arn:aws:logs:ap-southeast-1:017820698732:log-group:/aws/lambda/*"
+            "Resource": "arn:aws:logs:{region}:{account-id}:log-group:/aws/lambda/*"
         },
         {
             "Effect": "Allow",
@@ -20,7 +20,7 @@
                 "dynamodb:Query",
                 "dynamodb:Scan"
             ],
-            "Resource": "arn:aws:dynamodb:ap-southeast-1:017820698732:table/*"
+            "Resource": "arn:aws:dynamodb:{region}:{account-id}:table/*"
         }
     ]
 }
