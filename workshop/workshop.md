@@ -22,3 +22,23 @@
 > attach integration to the route  
 >> type: lambda function  
 >> lambda function: workshop-nodejs-hello  
+
+# Postman
+> create environment workshop-nodejs-api  
+>> add variable baseUrl  
+>> value: API default endpoint  
+>> select the environment
+
+> create collection workshop-courses  
+>> add request: Hello
+>> method: GET, path: {{baseUrl}}
+>> test the endpoint
+
+# Lambda
+> go to function workshop-nodejs-hello  
+>> observe that the trigger is API Gateway  
+>> Monitor: View CloudWatch logs  
+
+# CloudWatch
+> Log group: /aws/lambda/workshop-nodejs-hello  
+>> view log steams  
