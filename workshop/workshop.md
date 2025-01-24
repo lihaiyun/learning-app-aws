@@ -14,7 +14,7 @@
 >> type: HTTP API  
 >> name: workshop-nodejs-api  
 >> copy the default endpoint:  
->> e.g. https://{api-gateway-id}.execute-api.{region}.amazonaws.com  
+>> https://{api-gateway-id}.execute-api.{region}.amazonaws.com  
 
 > create route  
 >> method: GET, path: /  
